@@ -1,24 +1,11 @@
 public class Account {
-    private String accountNumber;
-    private double balance;
     private AccountState accountState;
+    public String accountNumber;
+    public Double balance;
 
-    public Account(String accountNumber, double balance) {
+    public Account(String accountNumber, Double balance) {
         this.accountNumber = accountNumber;
-        this.balance = balance;
-        this.accountState = new ActiveState(); // Initial state is active
-    }
-
-    // Getter and Setter methods for account number and balance
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
+        this.accountState = new ActivateState();
         this.balance = balance;
     }
 
@@ -26,34 +13,49 @@ public class Account {
         return accountState;
     }
 
-    public void setState(AccountState accountState) {
+    public void setAccountState(AccountState accountState) {
         this.accountState = accountState;
     }
 
-    // Operations delegated to the current state
-    public void deposit(double amount) {
-        accountState.deposit(this, amount);
+    public String getAccountNumber(){
+        return accountNumber;
     }
 
-    public void withdraw(double amount) {
-        accountState.withdraw(this, amount);
+    public void setAccountNumber(String accountNumber){
+        this.accountNumber = accountNumber;
     }
 
-    public void suspend() {
-        accountState.suspend(this);
+    public Double getBalance(){
+        return balance;
     }
 
-    public void activate() {
-        accountState.activate(this);
+    public void setBalance(Double balance){
+        this.balance = balance;
     }
 
-    public void close() {
-        accountState.close(this);
+    public void activate(){
+        this.accountState.activate(this);
     }
 
-    // Display account info
-    @Override
-    public String toString() {
-        return "Account number: " + accountNumber + ", Balance: " + balance;
+    public void suspend(){
+        this.accountState.suspend(this);
     }
+
+    public void close(){
+        this.accountState.close(this);
+    }
+
+    public void deposit(double amount){
+        this.accountState.deposit(this, amount);
+    }
+    
+    public void withdraw(double amount){
+        this.accountState.withdraw(this, amount);
+    }
+
+    public void to_String(){
+        System.out.println(getAccountNumber());
+        System.out.println(getBalance());
+    }
+
 }
